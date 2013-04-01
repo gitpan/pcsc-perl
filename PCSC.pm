@@ -1,4 +1,4 @@
-###############################################################################
+###########################################################################
 #    Authors     : Lionel VICTOR <lionel.victor@unforgettable.com>
 #                                 <lionel.victor@free.fr>
 #                  Ludovic ROUSSEAU <ludovic.rousseau@free.fr>
@@ -24,9 +24,9 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 #
-###############################################################################
+###########################################################################
 
-# $Id: PCSC.pm,v 1.22 2010-08-18 21:05:41 rousseau Exp $
+# $Id: PCSC.pm,v 1.25 2013/04/01 10:23:33 rousseau Exp $
 
 package Chipcard::PCSC;
 
@@ -66,7 +66,7 @@ sub array_to_ascii($)
 	confess ('usage Chipcard::PCSC::array_to_ascii($string)') unless defined $byte_array_ref;
 
 	# return an empty string for an empty list
-	return "" if (! defined @{$byte_array_ref});
+	return "" if (! @{$byte_array_ref});
 
 	my $return_string;
 	my $tmpVal;
@@ -154,18 +154,6 @@ sub Cancel($)
 	confess ("wrong type") unless ref $self;
 
 	return _Cancel ($self->{hContext});
-}
-
-sub SetTimeout($)
-{
-	my $self = shift;
-	confess ("wrong type") unless ref $self;
-
-	my $timeout = shift;
-	# Defult time out is 30 seconds
-	$timeout = 30 unless (defined $timeout);
-
-	return _SetTimeout ($self->{hContext}, $timeout);
 }
 
 sub DESTROY($)
